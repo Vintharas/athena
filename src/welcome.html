@@ -1,7 +1,13 @@
 <template>
-<section>
-    <h2>${heading}</h2>
+<section class="container">
+    <header class="row">
+        <h2>${heading} <small>${subheading}</small></h2>
+    </header>
 
+    <import from='./athena/athena-ui'></import>
+    <athena-ui></athena-ui>
+
+<!--
     <form role="form" submit.delegate="welcome()">
         <div class="form-group">
             <label for="fn">First Name</label>
@@ -11,12 +17,13 @@
             <label for="ln">Last Name</label>
             <input type="text" value.bind="lastName" class="form-control" id="ln" placeholder="last name">
         </div>
-        <div class="form-group">
+        <div class="fomr-group">
             <label>Full Name</label>
             <p class="help-block">${fullName}</p>
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
     </form>
+    -->
 </section>
 </template>
 

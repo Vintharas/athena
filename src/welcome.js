@@ -1,6 +1,7 @@
 export class Welcome{
     constructor(){
-        this.heading = 'Welcome to the Aurelia Navigation App!';
+        this.heading = "Athena";
+        this.subheading = "An Artificial Thinking Human-like Electronic Noetic Assistant";
         this.firstName = 'John';
         this.lastName = 'Doe';
     }
