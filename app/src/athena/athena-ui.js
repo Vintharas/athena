@@ -3,6 +3,7 @@ import {Behavior} from 'aurelia-framework';
 export class AthenaUI {
   static metadata(){ return Behavior.customElement('athena-ui'); }
   constructor(){
+    this.status = '';
     this.currentMessage = '';
     this.initialize();
   } 
@@ -14,7 +15,13 @@ export class AthenaUI {
   speak(msg){
     this.currentMessage = msg;
     var spokenMessage = new SpeechSynthesisUtterance(msg);
-        window.speechSynthesis.speak(spokenMessage);
+    spokenMessage.onstart = (function(){ 
+      this.status = 'isSpeaking';
+    }).bind(this);
+    spokenMessage.onend = (function(){
+      this.status = '';
+    }).bind(this);
+    window.speechSynthesis.speak(spokenMessage);
   }
   
 }

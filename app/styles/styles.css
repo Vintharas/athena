@@ -59,7 +59,7 @@ section {
     transition: all ease-in-out 1s;
 }
 
-#athena-circle .speaks{
+#athena-circle.isSpeaking{
     transform: scale(1.5); 
     transition: all ease-in-out 1s;
 }
@@ -67,4 +67,10 @@ section {
 #athena-circle:hover{
     transform: scale(1.5); 
     transition: all ease-in-out 1s;
+}
+
+.speech{
+    text-align: center;
+    font-size: 1.5em;
+    color: darkgrey;
 }
