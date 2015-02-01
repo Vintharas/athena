@@ -18,13 +18,16 @@ var protractor = require("gulp-protractor").protractor;
 var webdriver_update = require('gulp-protractor').webdriver_update;
 
 var path = {
-  source:'src/**/*.js',
-  html:'src/**/*.html',
-  style:'styles/**/*.css',
-  output:'dist/',
+  source:'app/src/**/*.js',
+  html: 'app/src/**/*.html',
+  indexhtml: 'app/index.html',
+  style:'app/styles/**/*.css',
+  output:'dist/app',
+  outputstyle: 'dist/styles',
+  indexoutput:'.',
   doc:'./doc',
-  e2eSpecsSrc: 'test/e2e/src/*.js',
-  e2eSpecsDist: 'test/e2e/dist/'
+  e2eSpecsSrc: 'app/test/e2e/src/*.js',
+  e2eSpecsDist: 'app/test/e2e/dist/'
 };
 
 var compilerOptions = {
@@ -73,6 +76,18 @@ gulp.task('build-html', function () {
     .pipe(gulp.dest(path.output));
 });
 
+gulp.task('build-css', function () {
+  return gulp.src(path.style)
+    .pipe(changed(path.outputstyle, {extension: '.css'}))
+    .pipe(gulp.dest(path.outputstyle));
+});
+
+gulp.task('build-index-html', function(){
+  return gulp.src(path.indexhtml)
+    .pipe(changed(path.indexoutput, {extension: '.html'}))
+    .pipe(gulp.dest(path.indexoutput));
+});
+
 gulp.task('lint', function() {
   return gulp.src(path.source)
     .pipe(jshint(jshintConfig))
@@ -110,7 +125,7 @@ gulp.task('changelog', function(callback) {
 gulp.task('build', function(callback) {
   return runSequence(
     'clean',
-    ['build-system', 'build-html'],
+    ['build-system', 'build-html', 'build-index-html', 'build-css'],
     callback
   );
 });
@@ -162,6 +177,7 @@ function reportChange(event){
 gulp.task('watch', ['serve'], function() {
   gulp.watch(path.source, ['build-system', browserSync.reload]).on('change', reportChange);
   gulp.watch(path.html, ['build-html', browserSync.reload]).on('change', reportChange);
+  gulp.watch(path.indexhtml, ['build-index-html', browserSync.reload]).on('change', reportChange);
   gulp.watch(path.style, browserSync.reload).on('change', reportChange);
 });
 
